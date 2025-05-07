@@ -1,0 +1,41 @@
+import { FaTimes } from "react-icons/fa"; // Use react-icons
+
+/**
+ * Modern third pane with slide-in animation.
+ * @param {Object} props
+ * @param {boolean} props.isOpen - Pane visibility
+ * @param {Function} props.toggleThirdPane - Toggles pane
+ * @returns {JSX.Element}
+ */
+function ThirdPane({ isOpen, toggleThirdPane }) {
+  return (
+    <div
+      className={`fixed inset-y-0 right-0 z-20 w-full md:w-80 bg-white/80 backdrop-blur-md shadow-lg transform ${
+        isOpen ? "translate-x-0" : "translate-x-full"
+      } transition-transform duration-300 ease-in-out md:shadow-xl`}
+    >
+      <div className="p-6">
+        <div className="flex items-center justify-between mb-4">
+          <h2 className="text-xl font-semibold text-textDark">Details Pane</h2>
+          <button
+            onClick={toggleThirdPane}
+            className="p-2 rounded-full hover:bg-secondary"
+            aria-label="Close pane"
+          >
+            <FaTimes className="w-5 h-5 text-textDark" />
+          </button>
+        </div>
+        <p className="text-textDark">
+          Additional details or settings can be displayed here.
+        </p>
+        <ul className="mt-4 space-y-2">
+          <li className="text-sm text-gray-600">Item 1</li>
+          <li className="text-sm text-gray-600">Item 2</li>
+          <li className="text-sm text-gray-600">Item 3</li>
+        </ul>
+      </div>
+    </div>
+  );
+}
+
+export default ThirdPane;
