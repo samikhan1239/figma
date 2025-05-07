@@ -9,7 +9,7 @@ function Button({ onClick, label }) {
   return (
     <button
       onClick={onClick}
-      className="px-6 py-2 bg-gradient-primary text-white rounded-lg shadow-sm hover:shadow-md transform hover:scale-105 transition-all duration-200"
+      className="px-6 py-2 bg-gradient-primary-light dark:bg-gradient-primary-dark text-white rounded-lg shadow-sm hover:shadow-md transform hover:scale-105 transition-all duration-200"
     >
       {label}
     </button>

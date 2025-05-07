@@ -1,12 +1,15 @@
 import { useState } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
 import Sidebar from "./components/Sidebar";
 import MainContent from "./components/MainContent";
 import ThirdPane from "./components/ThirdPane";
-import { FaBars, FaTimes } from "react-icons/fa"; // Use react-icons
+import Settings from "./components/Settings";
+import Profile from "./components/Profile";
+import { ThemeProvider } from "./context/ThemeContext";
 
 /**
- * Root component with modern dashboard layout and state.
+ * Root component with routing, theme, and modern dashboard layout.
  * @returns {JSX.Element} - Rendered dashboard
  */
 function App() {
@@ -30,14 +33,33 @@ function App() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-bgLight font-inter">
-      <Header toggleSidebar={toggleSidebar} isSidebarOpen={isSidebarOpen} />
-      <div className="flex flex-1 overflow-hidden">
-        <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
-        <MainContent toggleThirdPane={toggleThirdPane} error={error} />
-        <ThirdPane isOpen={isThirdPaneOpen} toggleThirdPane={toggleThirdPane} />
-      </div>
-    </div>
+    <ThemeProvider>
+      <BrowserRouter>
+        <div className="flex flex-col min-h-screen font-inter">
+          <Header toggleSidebar={toggleSidebar} isSidebarOpen={isSidebarOpen} />
+          <div className="flex flex-1 overflow-hidden">
+            <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
+            <Routes>
+              <Route
+                path="/"
+                element={
+                  <MainContent
+                    toggleThirdPane={toggleThirdPane}
+                    error={error}
+                  />
+                }
+              />
+              <Route path="/settings" element={<Settings />} />
+              <Route path="/profile" element={<Profile />} />
+            </Routes>
+            <ThirdPane
+              isOpen={isThirdPaneOpen}
+              toggleThirdPane={toggleThirdPane}
+            />
+          </div>
+        </div>
+      </BrowserRouter>
+    </ThemeProvider>
   );
 }
 
